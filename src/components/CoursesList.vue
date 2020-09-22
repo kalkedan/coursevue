@@ -42,7 +42,10 @@
                     <v-text-field v-model="editedItem.level" label="level"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.hours" label="hours" required = "required"></v-text-field>
+                    <v-text-field v-model="editedItem.hours" label="hours"></v-text-field>
+                  </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                    <v-text-field v-model="editedItem.description" label="description"></v-text-field>
                   </v-col>
                 </v-row>
               </v-container>
@@ -92,6 +95,7 @@ export default {
       number: 0,
       level: 0,
       hours: 0,
+      description:0
     },
     defaultItem: {
       name: "",
@@ -99,13 +103,14 @@ export default {
       number: 0,
       level: 0,
       hours: 0,
+      description:0
       
     },
   }),
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Edit Item";
+      return this.editedIndex === -1 ? "New Course" : "Edit Course";
     },
   },
 
