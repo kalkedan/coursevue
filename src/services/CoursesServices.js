@@ -4,7 +4,7 @@ var baseurl = "";
 if (process.env.NODE_ENV === "development") {
   baseurl = "http://localhost:3001/courseapi/";
 } else {
-  baseurl = "http://localhost:3001/courseapi/";
+  baseurl = "/courseapi/";
 }
 
 const apiClient = axios.create({
