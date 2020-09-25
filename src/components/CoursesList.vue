@@ -84,7 +84,7 @@ export default {
       { text: "Course Number", value: "number" },
       { text: "Course Level", value: "level" },
       { text: "Credit hrs", value: "hours" },
-      { text: "Descrption", value: "description" },
+      { text: "Description", value: "description" },
       { text: "Actions", value: "actions", sortable: false },
     ],
     courseLists: [],
