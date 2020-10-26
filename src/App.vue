@@ -11,7 +11,10 @@
         <v-btn flat>
           <router-link to="/courses">Courses</router-link>
         </v-btn>
-  </v-app-bar>
+          <v-btn flat>
+          <router-link to="/advisors">Advisors</router-link>
+        </v-btn>
+      </v-app-bar>
 
     <v-main>
       <router-view />
