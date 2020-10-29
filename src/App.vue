@@ -2,22 +2,29 @@
   <v-app>
     <v-app-bar app color="primary" dark>
       <v-spacer></v-spacer>
-    </v-app-bar>
+        <v-btn flat>
+          <router-link to="/">Home</router-link>
+        </v-btn>
+        <v-btn flat>
+          <router-link to="/about">About</router-link>
+        </v-btn>
+        <v-btn flat>
+          <router-link to="/courses">Courses</router-link>
+        </v-btn>
+  </v-app-bar>
 
     <v-main>
-      <CoursesList />
+      <router-view />
     </v-main>
   </v-app>
 </template>
 
 <script>
-import CoursesList from "./components/CoursesList";
 
 export default {
   name: "App",
 
   components: {
-    CoursesList,
   },
 
   data: () => ({
