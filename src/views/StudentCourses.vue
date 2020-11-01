@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="courseLists"
+    :items="studentCoursesLists"
     :search="search"
     sort-by="dept"
     class="elevation-1"
@@ -19,7 +19,7 @@
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">Add Course</v-btn>
+            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">Add Student Course</v-btn>
           </template>
           <v-card>
             <v-card-title>
@@ -30,22 +30,13 @@
               <v-container>
                 <v-row>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.name" label="Course name"></v-text-field>
+                    <v-text-field v-model="editedItem.courseName" label="courseName">Course Name</v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.dept" label="dept"></v-text-field>
+                    <v-text-field v-model="editedItem.name" label="semester-name">Semester Name</v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.number" label="number"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.hours" label="hours"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.level" label="level"></v-text-field>
-                  </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.description" label="description"></v-text-field>
+                    <v-text-field v-model="editedItem.grade" label="grade">Grade</v-text-field>
                   </v-col>
                 </v-row>
               </v-container>
@@ -68,7 +59,7 @@
 </template>
 
 <script>
-import CoursesServices from "../services/CoursesServices";
+import StudentCourseServices from "../services/StudentCourseServices";
 export default {
   data: () => ({
     dialog: false,
@@ -78,40 +69,28 @@ export default {
         text: "Course Name",
         align: "start",
 
-        value: "name",
+        value: "course-name",
       },
-      { text: "Department", value: "dept" },
-      { text: "Course Number", value: "number" },
-      { text: "Course Level", value: "level" },
-      { text: "Credit hrs", value: "hours" },
-      { text: "Description", value: "description" },
-      //{ text: "Schedule", value: "schedule"},
-      { text: "Actions", value: "actions", sortable: false },
+      { text: "Course Name", value: "course-name" },
+      { text: "Semester", value: "semester-name" }
     ],
-    courseLists: [],
+    StudentCourseLists: [],
     editedIndex: -1,
     editedItem: {
+      courseName: "",
       name: "",
-      dept: "",
-      number: "",
-      hours: 0,
-      level: 0,
-      description:""
+      grade: "",
     },
     defaultItem: {
+      courseName: "",
       name: "",
-      dept: "",
-      number: "",
-      hours: 0,
-      level: 0,
-      description:""
-      
+      grade: ""
     },
   }),
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "New Course" : "Edit Course";
+      return this.editedIndex === -1 ? "New Student Course" : "Edit Student Course";
     },
   },
 
@@ -122,9 +101,9 @@ export default {
   },
 
   created() {
-    CoursesServices.getCourses()
+    StudentCourseServices.getStudentCourses()
       .then((response) => {
-        this.courseLists = response.data;
+        this.StudentCourseLists = response.data;
       })
       .catch((error) => {
         console.log("There was an error:", error.response);
@@ -133,17 +112,17 @@ export default {
 
   methods: {
     editItem(item) {
-      this.editedIndex = this.courseLists.indexOf(item);
+      this.editedIndex = this.StudentCourseLists.indexOf(item);
       this.editedItem = Object.assign({}, item);
 
       this.dialog = true;
     },
 
     deleteItem(item) {
-      const index = this.courseLists.indexOf(item);
-      confirm("Are you sure you want to delete this item?") &&
-        this.courseLists.splice(index, 1);
-      CoursesServices.deleteCourse(item.id)
+      const index = this.StudentCourseLists.indexOf(item);
+      confirm("Are you sure you want to delete this StudentCourse?") &&
+        this.StudentCourseLists.splice(index, 1);
+      StudentCourseServices.deleteStudentCourse(item.id)
         .then((response) => {
           this.errors = response.data;
           this.$router.push(item);
@@ -161,32 +140,32 @@ export default {
       });
     },
 
-    updateCourse(id, course) {
-      CoursesServices.updateCourse(id, course)
+    updateStudentCourses(id, StudentCourse, grade) {
+      StudentCourseServices.updateStudentCourse(id, StudentCourse, grade)
         .then(() => {
-          this.$router.push(course);
+          this.$router.push(StudentCourse);
         })
         .catch((error) => {
           this.message = error.response;
         });
     },
-    addCourse(course) {
-      console.log(course)
-      CoursesServices.addCourse(course).then(() => {
-        this.$router.push(course);
+    addStudentCourse(StudentCourse) {
+      console.log(StudentCourse)
+      StudentCourseServices.addStudentCourse(StudentCourse).then(() => {
+        this.$router.push(StudentCourse);
         
       });
     },
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.courseLists[this.editedIndex], this.editedItem);
+        Object.assign(this.StudentCourseLists[this.editedIndex], this.editedItem);
       } else {
-        this.courseLists.push(this.editedItem);
+        this.StudentCourseLists.push(this.editedItem);
       }
       if (this.editedItem.id > 0) {
-        this.updateCourse(this.editedItem.id, this.editedItem);
+        this.updateStudentCourse(this.editedItem.id, this.editedItem);
       } else {
-        this.addCourse(this.editedItem);
+        this.addStudentCourse(this.editedItem);
       }
       this.close();
     },
