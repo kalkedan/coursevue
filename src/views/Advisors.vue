@@ -30,16 +30,16 @@
               <v-container>
                 <v-row>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.first" label="advisor-first"></v-text-field>
+                    <v-text-field v-model="editedItem.firstName" label="First Name"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.last" label="advisor-last"></v-text-field>
+                    <v-text-field v-model="editedItem.lastName" label="Last Name"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.email" label="email"></v-text-field>
+                    <v-text-field v-model="editedItem.email" label="Email"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.dept" label="department"></v-text-field>
+                    <v-text-field v-model="editedItem.dept" label="Department"></v-text-field>
                   </v-col>
                 </v-row>
               </v-container>
@@ -72,23 +72,23 @@ export default {
         text: "First Name",
         align: "start",
 
-        value: "advisor-first",
+        value: "firstName",
       },
-      { text: "Last Name", value: "advisor-last" },
+      { text: "Last Name", value: "lastName" },
       { text: "Email", value: "email" },
-      { text: "Department", value: "department" },
+      { text: "Department", value: "dept" },
     ],
     advisorLists: [],
     editedIndex: -1,
     editedItem: {
-      first: "",
-      last: "",
+      firstName: "",
+      lastName: "",
       email: "",
       dept: ""
     },
     defaultItem: {
-      first: "",
-      last: "",
+      firstName: "",
+      lastName: "",
       email: "",
       dept: ""
     },
