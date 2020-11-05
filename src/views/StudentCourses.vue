@@ -20,6 +20,7 @@
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">Add Student Course</v-btn>
+            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">Select Student</v-btn>
           </template>
           <v-card>
             <v-card-title>
@@ -48,6 +49,23 @@
               <v-btn color="blue darken-1" text @click="save">Save</v-btn>
             </v-card-actions>
           </v-card>
+
+            <v-card>
+            <v-card-title>
+              <span class="headline">{{ formStudent }}</span>
+            </v-card-title>
+
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field v-model="editedItem.student" label="student">Student</v-text-field>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+          </v-card>
+
         </v-dialog>
       </v-toolbar>
     </template>
@@ -72,16 +90,19 @@ export default {
         value: "course-name",
       },
       { text: "Course Name", value: "course-name" },
-      { text: "Semester", value: "semester-name" }
+      { text: "Semester", value: "semester-name" },
+      {text: "Student", value: "student"}
     ],
     StudentCourseLists: [],
     editedIndex: -1,
     editedItem: {
+      student: "",
       courseName: "",
       name: "",
       grade: "",
     },
     defaultItem: {
+      student: "",
       courseName: "",
       name: "",
       grade: ""
@@ -91,6 +112,9 @@ export default {
   computed: {
     formTitle() {
       return this.editedIndex === -1 ? "New Student Course" : "Edit Student Course";
+    },
+    formStudent() {
+        return this.editedIndex === -1 ? "Select Student" : "Select Student";
     },
   },
 
