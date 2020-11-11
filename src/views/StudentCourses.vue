@@ -48,23 +48,6 @@
               <v-btn color="blue darken-1" text @click="save">Save</v-btn>
             </v-card-actions>
           </v-card>
-
-            <v-card>
-            <v-card-title>
-              <span class="headline">{{ formStudent }}</span>
-            </v-card-title>
-
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.student" label="student">Student</v-text-field>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
-          </v-card>
-
         </v-dialog>
 
         <v-dialog v-model="dialog2" max-width="500px">

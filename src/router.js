@@ -1,7 +1,6 @@
 import Vue from 'vue' // Include Vue
 import Router from 'vue-router' // Include Vue Router libary
 import Home from './views/Home.vue' // <--- We'll look at these in a moment
-import About from './views/About.vue'
 import CoursesList from './views/CoursesList.vue'
 import Advisors from './views/Advisors.vue'
 import Semesters from './views/Semesters.vue'
@@ -16,11 +15,6 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
-    },
-    {
-      path: '/about',
-      name: 'about',
-      component: About
     },
     {
       path: '/courses',

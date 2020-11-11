@@ -66,14 +66,15 @@ export default {
     search: "",
     headers: [
       {
-        text: "First Name",
+        text: "Semester",
         align: "start",
 
-        value: "semester",
+        value: "name",
       },
-      { text: "Name", value: "name" },
       { text: "Start Date", value: "startDate" },
       { text: "End Date", value: "endDate" },
+      { text: "Actions", value: "actions", sortable: false },
+
     ],
     semesterLists: [],
     editedIndex: -1,
