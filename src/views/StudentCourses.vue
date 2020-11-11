@@ -122,6 +122,8 @@ export default {
       { text: "Course Name", value: "courses.name" },
       {text: "First Name", value: "students.firstName"},
       {text: "Last Name", value: "students.lastName"},
+      {text: "Semester", value: "semesters.name"},
+
     ], 
     StudentCourseLists: [],
     editedIndex: -1,
