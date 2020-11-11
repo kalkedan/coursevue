@@ -14,6 +14,12 @@
           <v-btn flat>
           <router-link to="/advisors">Advisors</router-link>
         </v-btn>
+        <v-btn flat>
+          <router-link to="/semesters">Semesters</router-link>
+        </v-btn>
+          <v-btn flat>
+          <router-link to="/studentCourses">Student Courses</router-link>
+        </v-btn>
       </v-app-bar>
 
     <v-main>

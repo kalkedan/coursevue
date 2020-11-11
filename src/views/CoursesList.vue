@@ -39,10 +39,10 @@
                     <v-text-field v-model="editedItem.number" label="number"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.level" label="level"></v-text-field>
+                    <v-text-field v-model="editedItem.hours" label="hours"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.hours" label="hours"></v-text-field>
+                    <v-text-field v-model="editedItem.level" label="level"></v-text-field>
                   </v-col>
                     <v-col cols="12" sm="6" md="4">
                     <v-text-field v-model="editedItem.description" label="description"></v-text-field>
@@ -85,25 +85,26 @@ export default {
       { text: "Course Level", value: "level" },
       { text: "Credit hrs", value: "hours" },
       { text: "Description", value: "description" },
+      //{ text: "Schedule", value: "schedule"},
       { text: "Actions", value: "actions", sortable: false },
     ],
     courseLists: [],
     editedIndex: -1,
     editedItem: {
       name: "",
-      dept: 0,
-      number: 0,
-      level: 0,
+      dept: "",
+      number: "",
       hours: 0,
-      description:0
+      level: 0,
+      description:""
     },
     defaultItem: {
       name: "",
-      dept: 0,
-      number: 0,
-      level: 0,
+      dept: "",
+      number: "",
       hours: 0,
-      description:0
+      level: 0,
+      description:""
       
     },
   }),
