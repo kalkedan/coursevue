@@ -77,6 +77,7 @@ export default {
       { text: "Last Name", value: "lastName" },
       { text: "Email", value: "email" },
       { text: "Department", value: "dept" },
+      { text: "Actions", value: "actions", sortable: false },
     ],
     advisorLists: [],
     editedIndex: -1,
