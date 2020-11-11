@@ -12,8 +12,8 @@ const apiClient = axios.create({
 });
 
 export default {
-  getStudentCourses() {
-    return apiClient.get("studentCourses");
+  getStudentCourses(studentCourseid) {
+    return apiClient.get("studentCourses/byStudentid/" + studentCourseid);
   },
 
   addStudentCourse(studentCourse) {

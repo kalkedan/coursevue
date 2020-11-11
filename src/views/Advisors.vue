@@ -110,6 +110,7 @@ export default {
     AdvisorsServices.getAdvisors()
       .then((response) => {
         this.advisorLists = response.data;
+        console.log(response.data);
       })
       .catch((error) => {
         console.log("There was an error:", error.response);

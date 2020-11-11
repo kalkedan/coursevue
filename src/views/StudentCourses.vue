@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="studentCoursesLists"
+    :items="StudentCourseLists"
     :search="search"
     sort-by="dept"
     class="elevation-1"
@@ -20,7 +20,6 @@
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">Add Student Course</v-btn>
-            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">Select Student</v-btn>
           </template>
           <v-card>
             <v-card-title>
@@ -31,7 +30,7 @@
               <v-container>
                 <v-row>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.courseName" label="courseName">Course Name</v-text-field>
+                    <v-text-field v-model="editedItem.courseId" label="studentId">Course ID</v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
                     <v-text-field v-model="editedItem.name" label="semester-name">Semester Name</v-text-field>
@@ -67,6 +66,34 @@
           </v-card>
 
         </v-dialog>
+
+        <v-dialog v-model="dialog2" max-width="500px">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">Select Student</v-btn>
+          </template>
+          <v-card>
+            <v-card-title>
+              <span class="headline">{{ formTitle }}</span>
+            </v-card-title>
+
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field v-model="myStudent" label="Student ID"></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
+              <v-btn color="blue darken-1" text @click="selectStudent">Save</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+
       </v-toolbar>
     </template>
     <template v-slot:[`item.actions`]="{ item }">
@@ -80,30 +107,33 @@
 import StudentCourseServices from "../services/StudentCourseServices";
 export default {
   data: () => ({
+    myStudent: -1,
     dialog: false,
+    dialog2: false,
     search: "",
     headers: [
       {
-        text: "Course Name",
+        text: "Course Id",
         align: "start",
 
-        value: "course-name",
+        value: "courseId",
       },
-      { text: "Course Name", value: "course-name" },
-      { text: "Semester", value: "semester-name" },
-      {text: "Student", value: "student"}
-    ],
+      { text: "Course Dept", value: "courses.dept" },
+      { text: "Course Name", value: "courses.name" },
+      {text: "First Name", value: "students.firstName"},
+      {text: "Last Name", value: "students.lastName"},
+    ], 
     StudentCourseLists: [],
     editedIndex: -1,
     editedItem: {
-      student: "",
-      courseName: "",
+      courseId: "",
+      courses: "",
       name: "",
       grade: "",
     },
     defaultItem: {
-      student: "",
-      courseName: "",
+      courseId: "",
+      courses: "",
       name: "",
       grade: ""
     },
@@ -122,12 +152,16 @@ export default {
     dialog(val) {
       val || this.close();
     },
+    dialog2(val) {
+      val || this.close();
+    },
   },
 
   created() {
     StudentCourseServices.getStudentCourses()
       .then((response) => {
         this.StudentCourseLists = response.data;
+        console.log(response.data);
       })
       .catch((error) => {
         console.log("There was an error:", error.response);
@@ -158,6 +192,7 @@ export default {
 
     close() {
       this.dialog = false;
+      this.dialog2 = false;
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
@@ -193,6 +228,32 @@ export default {
       }
       this.close();
     },
+    selectStudent() {
+
+      StudentCourseServices.getStudentCourses(this.myStudent)
+      .then((response) => {
+        console.log(this.myStudent);
+        this.StudentCourseLists = response.data;
+        // this.$router.push(StudentCourses);
+
+      })
+      .catch((error) => {
+        console.log("There was an error:", error.response);
+      });
+
+      this.close();
+    },
+    getStudentCourses(id) {
+      console.log(id);
+
+      StudentCourseServices.getStudentCourses(id)
+      .then((response) => {
+        this.StudentCourseLists = response.data;
+      })
+      .catch((error) => {
+        console.log("There was an error:", error.response);
+      });
+    }
   },
 };
 </script>
