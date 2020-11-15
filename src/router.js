@@ -4,6 +4,7 @@ import Home from './views/Home.vue' // <--- We'll look at these in a moment
 import About from './views/About.vue'
 import CoursesList from './views/CoursesList.vue'
 import Advisors from './views/Advisors.vue'
+import Login from './views/Login.vue'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/advisors',
       name: 'advisors',
       component: Advisors
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
     }
   ]
 })

@@ -14,6 +14,9 @@
           <v-btn flat>
           <router-link to="/advisors">Advisors</router-link>
         </v-btn>
+        <v-btn flat>
+          <router-link to="/login">Login</router-link>
+        </v-btn>
       </v-app-bar>
 
     <v-main>
