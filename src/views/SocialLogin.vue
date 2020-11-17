@@ -10,7 +10,8 @@
 
 <script>
 //import { initFbsdk } from '@/config/facebook_oAuth.js'
-import router from '../router'
+// import router from '../router'
+import Utils from '@/config/utils.js';
 export default {
   name: 'login_signup_social',
   mounted () {
@@ -27,11 +28,17 @@ export default {
           console.log('getBasicProfile', GoogleUser.getBasicProfile())
           console.log('getAuthResponse', GoogleUser.getAuthResponse())
           var userInfo = {
-            loginType: 'google',
-            google: GoogleUser
+            name: GoogleUser.getBasicProfile().Ad,
+            email: GoogleUser.getBasicProfile().$t,
+            googleToken: GoogleUser.getAuthResponse().id_token
           }
-          this.$store.commit('setLoginUser', userInfo)
-          router.push({path: 'home'})
+
+          // send user to backend to authorize and login user (not done yet)
+
+          console.log(userInfo);
+          Utils.setStore("user",userInfo);
+          //this.$store.commit('setLoginUser', userInfo)
+          this.$router.push({name: 'home'});
         })
         .catch(error => {
           console.log('error', error)

@@ -6,7 +6,9 @@
 
 <script>
   export default {
-    
+    created() {
+      console.log("You made it to the home page!");
+    }
   }
 </script>
 
