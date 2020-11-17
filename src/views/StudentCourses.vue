@@ -30,13 +30,16 @@
               <v-container>
                 <v-row>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.courseName" label="courseName">Course ID</v-text-field>
+                    <v-text-field v-model="editedItem.studentId" label="Student Id">Student Id</v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.name" label="semester-name">Semester Name</v-text-field>
+                    <v-text-field v-model="editedItem.courseId" label="Course Id">Course Id</v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.grade" label="grade">Grade</v-text-field>
+                    <v-text-field v-model="editedItem.semesterId" label="Semester Id">Semester Id</v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field v-model="editedItem.grade" label="Grade">Grade</v-text-field>
                   </v-col>
                 </v-row>
               </v-container>
@@ -111,16 +114,16 @@ export default {
     StudentCourseLists: [],
     editedIndex: -1,
     editedItem: {
+      studentId: "",
       courseId: "",
-      courses: "",
-      name: "",
+      semesterId: "",
       grade: "",
     },
     defaultItem: {
+      studentId: "",
       courseId: "",
-      courses: "",
-      name: "",
-      grade: ""
+      semesterId: "",
+      grade: "A",
     },
   }),
 

@@ -75,11 +75,12 @@ export default {
     search: "",
     headers: [
       {
-        text: "Course Name",
+        text: "Id",
         align: "start",
 
-        value: "name",
+        value: "id",
       },
+      { text: "Course Name", value: "name" },
       { text: "Department", value: "dept" },
       { text: "Course Number", value: "number" },
       { text: "Course Level", value: "level" },
