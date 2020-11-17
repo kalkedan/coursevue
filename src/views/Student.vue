@@ -43,7 +43,7 @@
             ></v-text-field>
           </v-col>
           <v-col cols="12">
-            <v-textarea
+            <!-- <v-textarea
               v-model="form.bio"
               color="teal"
             >
@@ -52,26 +52,26 @@
                   Bio <small>(optional)</small>
                 </div>
               </template>
-            </v-textarea>
+            </v-textarea> -->
           </v-col>
           <v-col
             cols="12"
             sm="6"
           >
-            <v-select
+            <!-- <v-select
               v-model="form.favoriteAnimal"
               :items="animals"
               :rules="rules.animal"
               color="pink"
               label="Favorite animal"
               required
-            ></v-select>
+            ></v-select> -->
           </v-col>
           <v-col
             cols="12"
             sm="6"
           >
-            <v-slider
+            <!-- <v-slider
               v-model="form.age"
               :rules="rules.age"
               color="orange"
@@ -80,10 +80,10 @@
               min="1"
               max="100"
               thumb-label
-            ></v-slider>
+            ></v-slider> -->
           </v-col>
           <v-col cols="12">
-            <v-checkbox
+            <!-- <v-checkbox
               v-model="form.terms"
               color="green"
             >
@@ -101,7 +101,7 @@
                   >conditions?</a>
                 </div>
               </template>
-            </v-checkbox>
+            </v-checkbox> -->
           </v-col>
         </v-row>
       </v-container>
@@ -123,7 +123,7 @@
         </v-btn>
       </v-card-actions>
     </v-form>
-    <v-dialog
+    <!-- <v-dialog
       v-model="terms"
       width="70%"
     >
@@ -148,8 +148,8 @@
           </v-btn>
         </v-card-actions>
       </v-card>
-    </v-dialog>
-    <v-dialog
+    </v-dialog> -->
+    <!-- <v-dialog
       v-model="conditions"
       width="70%"
     >
@@ -174,7 +174,7 @@
           </v-btn>
         </v-card-actions>
       </v-card>
-    </v-dialog>
+    </v-dialog> -->
   </v-card>
 </template>
 
@@ -186,22 +186,22 @@
         last: '',
         bio: '',
         favoriteAnimal: '',
-        age: null,
-        terms: false,
+        // age: null,
+        // terms: false,
       })
 
       return {
         form: Object.assign({}, defaultForm),
         rules: {
-          age: [
-            val => val < 10 || `I don't believe you!`,
-          ],
-          animal: [val => (val || '').length > 0 || 'This field is required'],
+          // age: [
+          //   val => val < 10 || `I don't believe you!`,
+          // ],
+          // animal: [val => (val || '').length > 0 || 'This field is required'],
           name: [val => (val || '').length > 0 || 'This field is required'],
         },
-        animals: ['Dog', 'Cat', 'Rabbit', 'Turtle', 'Snake'],
-        conditions: false,
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc.',
+        // animals: ['Dog', 'Cat', 'Rabbit', 'Turtle', 'Snake'],
+        // conditions: false,
+        // content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc.',
         snackbar: false,
         terms: false,
         defaultForm,
@@ -212,9 +212,9 @@
       formIsValid () {
         return (
           this.form.first &&
-          this.form.last &&
-          this.form.favoriteAnimal &&
-          this.form.terms
+          this.form.last //&&
+          // this.form.favoriteAnimal &&
+          // this.form.terms
         )
       },
     },
