@@ -25,5 +25,8 @@ export default {
   deleteStudent(studentId) {
     return apiClient.delete("students/" + studentId);
   },
+  getStudentByEmail(email) {
+    return apiClient.get("students/:email" + email);
+  }
 
 };

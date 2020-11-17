@@ -88,6 +88,7 @@
 
 <script>
 import StudentCourseServices from "../services/StudentCourseServices";
+import Utils from '@/config/utils';
 export default {
   data: () => ({
     myStudent: -1,
@@ -102,9 +103,8 @@ export default {
       },
       { text: "Course Dept", value: "courses.dept" },
       { text: "Course Name", value: "courses.name" },
-      {text: "First Name", value: "students.firstName"},
-      {text: "Last Name", value: "students.lastName"},
       {text: "Semester", value: "semesters.name"},
+      {text: "Grade", value: "studentCourse.grade"}
     ], 
     StudentCourseLists: [],
     editedIndex: -1,
@@ -138,10 +138,18 @@ export default {
     },
   },
   created() {
-    StudentCourseServices.getStudentCourses()
+    // StudentCourseServices.getStudentCourses()
+    //   .then((response) => {
+    //     this.StudentCourseLists = response.data;
+    //     console.log(response.data);
+    //   })
+    //   .catch((error) => {
+    //     console.log("There was an error:", error.response);
+    //   });
+    StudentCourseServices.getStudentCoursesByEmail(Utils.getStore("user").email)
       .then((response) => {
         this.StudentCourseLists = response.data;
-        console.log(response.data);
+        console.log("response.data" + response.data);
       })
       .catch((error) => {
         console.log("There was an error:", error.response);
@@ -224,6 +232,12 @@ export default {
       .catch((error) => {
         console.log("There was an error:", error.response);
       });
+    },
+    getStudentCoursesByEmail(email) {
+      StudentCourseServices.getStudentCoursesByEmail(email)
+      .then((response) => {
+        this.StudentCourseLists = response.data;
+      })
     }
   },
 };

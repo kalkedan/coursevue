@@ -138,6 +138,17 @@ export default {
         });
     },
 
+    getStudentByEmail(email) {
+      StudentsServices.getStudentByEmail(email)
+      .then((response) => {
+          this.errors = response.data;
+          this.$router.push(email);
+        })
+        .catch((error) => {
+          this.errors = error.data;
+        });
+    },
+
     close() {
       this.dialog = false;
       this.$nextTick(() => {

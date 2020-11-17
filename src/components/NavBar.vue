@@ -23,7 +23,7 @@ export default {
             {ref: 'home', name: 'home', text: 'Home', extensions: '"None",eagles.oc.edu,oc.edu'},
             {ref: 'about', name: 'about', text: 'About', extensions: '"None",eagles.oc.edu,oc.edu'},
             {ref: 'courses', name: 'courses', text: 'Courses', extensions: 'eagles.oc.edu,oc.edu'},
-            {ref: 'advisors', name: 'advisors', text: 'Advisors', extensions: 'oc.edu'},
+            {ref: 'advisors', name: 'advisors', text: 'Advisors', extensions: 'eagles.oc.edu,oc.edu'},
             {ref: 'students', name: 'students', text: 'Students', extensions: 'oc.edu'},
             {ref: 'student', name: 'student', text: 'Student Info', extensions: 'eagles.oc.edu'},
             {ref: 'StudentCourses', name: 'StudentCourses', text: 'Course Plan', extensions: 'eagles.oc.edu'},
