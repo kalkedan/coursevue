@@ -1,6 +1,8 @@
 <template>
     <div>
         <v-app-bar color="blue">
+            <v-toolbar-title ref="toolbar-title">OC Course Plan</v-toolbar-title>
+            <v-spacer></v-spacer>
             <v-toolbar-items>
                 <v-btn text v-for="menu in activeMenus" exact :key="menu.name" :ref="menu.ref" link :to="{name:menu.name,}" >{{menu.text}}</v-btn>
             </v-toolbar-items>
@@ -16,12 +18,17 @@ export default {
     data: () => ({
         user: {},
         str: [],
+        title: "",
         menus: [
-            {ref: 'home', name: 'home', text: 'Home', extensions: '"",eagles.oc.edu,oc.edu'},
-            {ref: 'about', name: 'about', text: 'About', extensions: '"",eagles.oc.edu,oc.edu'},
+            {ref: 'home', name: 'home', text: 'Home', extensions: '"None",eagles.oc.edu,oc.edu'},
+            {ref: 'about', name: 'about', text: 'About', extensions: '"None",eagles.oc.edu,oc.edu'},
             {ref: 'courses', name: 'courses', text: 'Courses', extensions: 'eagles.oc.edu,oc.edu'},
             {ref: 'advisors', name: 'advisors', text: 'Advisors', extensions: 'oc.edu'},
-            {ref: 'login', name: 'login', text: 'Login', extensions: '"",eagles.oc.edu,oc.edu'}
+            {ref: 'students', name: 'students', text: 'Students', extensions: 'oc.edu'},
+            {ref: 'student', name: 'student', text: 'Student Info', extensions: 'eagles.oc.edu'},
+            {ref: 'StudentCourses', name: 'StudentCourses', text: 'Course Plan', extensions: 'eagles.oc.edu'},
+            {ref: 'login', name: 'login', text: 'Login', extensions: '"None",eagles.oc.edu,oc.edu'},
+            {ref : 'logout', name : "logout", text: 'Logout', extensions : 'eagles.oc.edu,oc.edu'}
         ],
         activeMenus : []
     }),
@@ -35,7 +42,7 @@ export default {
 
         }
         else {
-            this.activeMenus = this.menus.filter(menu => menu.extensions.includes(""));
+            this.activeMenus = this.menus.filter(menu => menu.extensions.includes("None"));
         }
     },
     methods: {
