@@ -148,9 +148,9 @@ export default {
     //     console.log("There was an error:", error.response);
     //   });
     let email = Utils.getStore("user").email;
-    let user = StudentServices.getStudentByEmail(email);
+    let user = StudentsServices.getStudentByEmail(email);
     let id = user.id;
-    StudentCourseServices.getStudentCoursesByEmail(email)
+    StudentCourseServices.getStudentCourses(id)
       .then((response) => {
         this.StudentCourseLists = response.data;
         console.log("response.data" + response.data);
@@ -197,7 +197,8 @@ export default {
     },
     addStudentCourse(StudentCourse) {
       console.log(StudentCourse)
-      StudentCourseServices.addStudentCourse(StudentCourse).then(() => {
+      StudentCourseServices.addStudentCourse(StudentCourse)
+      .then(() => {
         this.$router.push(StudentCourse);
         
       });
