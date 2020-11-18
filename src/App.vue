@@ -1,24 +1,11 @@
+<!--<NavBar :key="$route.fullPath" /> -->
+
+
+
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
-      <v-spacer></v-spacer>
-        <v-btn flat>
-          <router-link to="/">Home</router-link>
-        </v-btn>
-        <v-btn flat>
-          <router-link to="/courses">Courses</router-link>
-        </v-btn>
-          <v-btn flat>
-          <router-link to="/advisors">Advisors</router-link>
-        </v-btn>
-        <v-btn flat>
-          <router-link to="/semesters">Semesters</router-link>
-        </v-btn>
-          <v-btn flat>
-          <router-link to="/studentCourses">Student Courses</router-link>
-        </v-btn>
-      </v-app-bar>
-
+    <!-- Add NavBar -->
+    <NavBar :key="$route.fullPath" />
     <v-main>
       <router-view />
     </v-main>
@@ -27,14 +14,27 @@
 
 <script>
 
+import NavBar from '@/components/NavBar';
+import Utils from '@/config/utils.js';
 export default {
   name: "App",
 
   components: {
+    NavBar
   },
 
-  data: () => ({
-    //
-  }),
+  data() {
+    return {
+      user : {}
+    }
+  },
+
+  created() {
+    this.user = Utils.getStore('user');
+  }
+
+  // data: () => ({
+  //   //
+  // }),
 };
 </script>
