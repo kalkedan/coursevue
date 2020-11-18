@@ -112,6 +112,7 @@ export default {
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
+    
     deleteItem(item) {
       const index = this.semesterLists.indexOf(item);
       confirm("Are you sure you want to delete this semester?") &&
@@ -125,6 +126,7 @@ export default {
           this.errors = error.data;
         });
     },
+    
     close() {
       this.dialog = false;
       this.$nextTick(() => {
@@ -132,6 +134,7 @@ export default {
         this.editedIndex = -1;
       });
     },
+    
     updateSemester(id, semester) {
       SemestersServices.updateSemester(id, semester)
         .then(() => {

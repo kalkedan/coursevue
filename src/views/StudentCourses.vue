@@ -51,9 +51,6 @@
         </v-dialog>
 
         <v-dialog v-model="dialog2" max-width="500px">
-          <!-- <template v-slot:activator="{ on, attrs }">
-            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">Select Student</v-btn>
-          </template> -->
           <v-card>
             <v-card-title>
               <span class="headline">{{ formTitle }}</span>
@@ -139,14 +136,6 @@ export default {
     },
   },
   created() {
-    // StudentCourseServices.getStudentCourses()
-    //   .then((response) => {
-    //     this.StudentCourseLists = response.data;
-    //     console.log(response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.log("There was an error:", error.response);
-    //   });
     let email = Utils.getStore("user").email;
     let user = StudentServices.getStudentByEmail(email);
     let id = user.id;
@@ -165,6 +154,7 @@ export default {
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
+
     deleteItem(item) {
       const index = this.StudentCourseLists.indexOf(item);
       confirm("Are you sure you want to delete this StudentCourse?") &&
