@@ -88,6 +88,7 @@
 
 <script>
 import StudentCourseServices from "../services/StudentCourseServices";
+import StudentsServices from "../services/StudentsServices";
 import Utils from '@/config/utils';
 export default {
   data: () => ({
@@ -146,7 +147,10 @@ export default {
     //   .catch((error) => {
     //     console.log("There was an error:", error.response);
     //   });
-    StudentCourseServices.getStudentCoursesByEmail(Utils.getStore("user").email)
+    let email = Utils.getStore("user").email;
+    let user = StudentServices.getStudentByEmail(email);
+    let id = user.id;
+    StudentCourseServices.getStudentCoursesByEmail(email)
       .then((response) => {
         this.StudentCourseLists = response.data;
         console.log("response.data" + response.data);
