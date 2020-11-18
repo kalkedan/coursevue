@@ -16,9 +16,9 @@ export default {
     return apiClient.get("studentCourses/byStudentid/" + studentCourseid);
   },
 
-  // getStudentCoursesByEmail(studentEmail) {
-  //   return apiClient.get("studentCourses/byEmail" + studentEmail);
-  // },
+  getStudentCoursesByEmail(studentEmail) {
+    return apiClient.get("studentCourses/byEmail" + studentEmail);
+  },
 
   addStudentCourse(studentCourse) {
     return apiClient.post("studentCourses", studentCourse);

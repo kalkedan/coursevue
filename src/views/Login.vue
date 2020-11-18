@@ -2,9 +2,9 @@
   <div class="main-container">
     <form>
       <div class="box-container">
-        <h2 class="heading">Sign In</h2>
+        <h2 class="heading">Sign In With</h2>
         
-        <div class="login-choice"><span>or Sign In with</span></div>
+        <!-- <div class="login-choice"><span>or Sign In with</span></div> -->
         <SocialLogin />
       </div>
     </form>
