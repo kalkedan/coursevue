@@ -77,6 +77,7 @@ export default {
       { text: "Last Name", value: "lastName" },
       { text: "Email", value: "email" },
       { text: "Department", value: "dept" },
+      { text: "Actions", value: "actions", sortable: false },
     ],
     advisorLists: [],
     editedIndex: -1,
@@ -110,6 +111,7 @@ export default {
     AdvisorsServices.getAdvisors()
       .then((response) => {
         this.advisorLists = response.data;
+        console.log(response.data);
       })
       .catch((error) => {
         console.log("There was an error:", error.response);
