@@ -51,9 +51,6 @@
         </v-dialog>
 
         <v-dialog v-model="dialog2" max-width="500px">
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">Select Student</v-btn>
-          </template>
           <v-card>
             <v-card-title>
               <span class="headline">{{ formTitle }}</span>
@@ -88,6 +85,8 @@
 
 <script>
 import StudentCourseServices from "../services/StudentCourseServices";
+import StudentsServices from "../services/StudentsServices";
+import Utils from '@/config/utils';
 export default {
   data: () => ({
     myStudent: -1,
@@ -98,15 +97,12 @@ export default {
       {
         text: "Course Id",
         align: "start",
-
         value: "courseId",
       },
       { text: "Course Dept", value: "courses.dept" },
       { text: "Course Name", value: "courses.name" },
-      {text: "First Name", value: "students.firstName"},
-      {text: "Last Name", value: "students.lastName"},
       {text: "Semester", value: "semesters.name"},
-
+      {text: "Grade", value: "studentCourse.grade"}
     ], 
     StudentCourseLists: [],
     editedIndex: -1,
@@ -123,7 +119,6 @@ export default {
       grade: ""
     },
   }),
-
   computed: {
     formTitle() {
       return this.editedIndex === -1 ? "New Student Course" : "Edit Student Course";
@@ -132,7 +127,6 @@ export default {
         return this.editedIndex === -1 ? "Select Student" : "Select Student";
     },
   },
-
   watch: {
     dialog(val) {
       val || this.close();
@@ -141,23 +135,23 @@ export default {
       val || this.close();
     },
   },
-
   created() {
-    StudentCourseServices.getStudentCourses()
+    let email = Utils.getStore("user").email;
+    let user = StudentServices.getStudentByEmail(email);
+    let id = user.id;
+    StudentCourseServices.getStudentCoursesByEmail(email)
       .then((response) => {
         this.StudentCourseLists = response.data;
-        console.log(response.data);
+        console.log("response.data" + response.data);
       })
       .catch((error) => {
         console.log("There was an error:", error.response);
       });
   },
-
   methods: {
     editItem(item) {
       this.editedIndex = this.StudentCourseLists.indexOf(item);
       this.editedItem = Object.assign({}, item);
-
       this.dialog = true;
     },
 
@@ -174,7 +168,6 @@ export default {
           this.errors = error.data;
         });
     },
-
     close() {
       this.dialog = false;
       this.dialog2 = false;
@@ -183,7 +176,6 @@ export default {
         this.editedIndex = -1;
       });
     },
-
     updateStudentCourses(id, StudentCourse, grade) {
       StudentCourseServices.updateStudentCourse(id, StudentCourse, grade)
         .then(() => {
@@ -214,23 +206,19 @@ export default {
       this.close();
     },
     selectStudent() {
-
       StudentCourseServices.getStudentCourses(this.myStudent)
       .then((response) => {
         console.log(this.myStudent);
         this.StudentCourseLists = response.data;
         // this.$router.push(StudentCourses);
-
       })
       .catch((error) => {
         console.log("There was an error:", error.response);
       });
-
       this.close();
     },
     getStudentCourses(id) {
       console.log(id);
-
       StudentCourseServices.getStudentCourses(id)
       .then((response) => {
         this.StudentCourseLists = response.data;
@@ -238,6 +226,12 @@ export default {
       .catch((error) => {
         console.log("There was an error:", error.response);
       });
+    },
+    getStudentCoursesByEmail(email) {
+      StudentCourseServices.getStudentCoursesByEmail(email)
+      .then((response) => {
+        this.StudentCourseLists = response.data;
+      })
     }
   },
 };

@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="semesterLists"
+    :items="studentLists"
     :search="search"
     sort-by="dept"
     class="elevation-1"
@@ -19,7 +19,7 @@
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">Add Semester</v-btn>
+            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">Add Student</v-btn>
           </template>
           <v-card>
             <v-card-title>
@@ -30,13 +30,16 @@
               <v-container>
                 <v-row>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.name" label="semester"></v-text-field>
+                    <v-text-field v-model="editedItem.firstName" label="First Name"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.startDate" label="Start Date"></v-text-field>
+                    <v-text-field v-model="editedItem.lastName" label="Last Name"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.endDate" label="End Date"></v-text-field>
+                    <v-text-field v-model="editedItem.email" label="Email"></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field v-model="editedItem.dept" label="Department"></v-text-field>
                   </v-col>
                 </v-row>
               </v-container>
@@ -59,65 +62,73 @@
 </template>
 
 <script>
-import SemestersServices from "../services/SemesterServices";
+import StudentsServices from "../services/StudentsServices";
 export default {
   data: () => ({
     dialog: false,
     search: "",
     headers: [
       {
-        text: "Semester",
+        text: "First Name",
         align: "start",
-        value: "name",
+
+        value: "firstName",
       },
-      { text: "Start Date", value: "startDate" },
-      { text: "End Date", value: "endDate" },
-      { text: "Actions", value: "actions", sortable: false },
+      { text: "Last Name", value: "lastName" },
+      { text: "Email", value: "email" },
+      { text: "Department", value: "dept" },
     ],
-    semesterLists: [],
+    studentLists: [],
     editedIndex: -1,
     editedItem: {
-      name: "",
-      startDate: "",
-      endDate: ""
+      firstName: "",
+      lastName: "",
+      email: "",
+      dept: ""
     },
     defaultItem: {
-      name: "",
-      startDate: "",
-      endDate: ""
+      firstName: "",
+      lastName: "",
+      email: "",
+      dept: ""
     },
   }),
+
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "New Semester" : "Edit Semester";
+      return this.editedIndex === -1 ? "New Student" : "Edit Student";
     },
   },
+
   watch: {
     dialog(val) {
       val || this.close();
     },
   },
+
   created() {
-    SemestersServices.getSemesters()
+    StudentsServices.getStudents()
       .then((response) => {
-        this.semesterLists = response.data;
+        this.studentLists = response.data;
       })
       .catch((error) => {
         console.log("There was an error:", error.response);
       });
   },
+
   methods: {
     editItem(item) {
-      this.editedIndex = this.semesterLists.indexOf(item);
+      this.editedIndex = this.studentLists.indexOf(item);
       this.editedItem = Object.assign({}, item);
+
       this.dialog = true;
     },
-    
+
     deleteItem(item) {
-      const index = this.semesterLists.indexOf(item);
-      confirm("Are you sure you want to delete this semester?") &&
-        this.semesterLists.splice(index, 1);
-      SemestersServices.deleteSemester(item.id)
+      const index = this.studentLists.indexOf(item);
+      confirm("Are you sure you want to delete this student?") &&
+        this.studentLists.splice(index, 1);
+      StudentsServices.deleteStudent(item.id)
         .then((response) => {
           this.errors = response.data;
           this.$router.push(item);
@@ -126,7 +137,18 @@ export default {
           this.errors = error.data;
         });
     },
-    
+
+    getStudentByEmail(email) {
+      StudentsServices.getStudentByEmail(email)
+      .then((response) => {
+          this.errors = response.data;
+          this.$router.push(email);
+        })
+        .catch((error) => {
+          this.errors = error.data;
+        });
+    },
+
     close() {
       this.dialog = false;
       this.$nextTick(() => {
@@ -134,33 +156,33 @@ export default {
         this.editedIndex = -1;
       });
     },
-    
-    updateSemester(id, semester) {
-      SemestersServices.updateSemester(id, semester)
+
+    updateStudent(id, student) {
+      StudentsServices.updateStudent(id, student)
         .then(() => {
-          this.$router.push(semester);
+          this.$router.push(student);
         })
         .catch((error) => {
           this.message = error.response;
         });
     },
-    addSemester(semester) {
-      console.log(semester)
-      SemestersServices.addSemester(semester).then(() => {
-        this.$router.push(semester);
+    addStudent(student) {
+      console.log(student)
+      StudentsServices.addStudent(student).then(() => {
+        this.$router.push(student);
         
       });
     },
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.semesterLists[this.editedIndex], this.editedItem);
+        Object.assign(this.studentLists[this.editedIndex], this.editedItem);
       } else {
-        this.semesterLists.push(this.editedItem);
+        this.studentLists.push(this.editedItem);
       }
       if (this.editedItem.id > 0) {
-        this.updateSemester(this.editedItem.id, this.editedItem);
+        this.updateStudent(this.editedItem.id, this.editedItem);
       } else {
-        this.addSemester(this.editedItem);
+        this.addStudent(this.editedItem);
       }
       this.close();
     },
